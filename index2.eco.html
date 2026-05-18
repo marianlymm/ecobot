@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBot Funcional - ERMP Villa Clara</title>
+    <style>
+        :root { --blue: #1A568F; --red: #d32f2f; --bg: #f0f2f5; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; padding: 20px; }
+        .chat-card { width: 100%; max-width: 400px; height: 600px; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; overflow: hidden; }
+        .header { background: var(--blue); color: white; padding: 15px; text-align: center; border-bottom: 4px solid var(--red); }
+        #chat-window { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #e5e5f7; }
+        .msg { padding: 10px 15px; border-radius: 15px; font-size: 14px; max-width: 80%; }
+        .bot { background: white; align-self: flex-start; border-bottom-left-radius: 2px; box-shadow: 2px 2px 5px rgba(0,0,0,0.05); }
+        .user { background: var(--blue); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .input-area { padding: 15px; display: flex; gap: 10px; background: white; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 20px; outline: none; }
+        button { background: var(--blue); color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<div class="chat-card">
+    <div class="header">
+        <strong>EcoBot Villa Clara</strong>
+        <p style="font-size: 10px; margin: 0;">ERMP - Función Inteligente Activa</p>
+    </div>
+    <div id="chat-window">
+        <div class="msg bot">¡Hola! Soy EcoBot. Escribe el nombre de un material (ej: "cobre") o pregunta por un precio.</div>
+    </div>
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="Escriba aquí...">
+        <button onclick="enviar()">Enviar</button>
+    </div>
+</div>
+
+<script>
+    // Base de datos funcional del Bot
+    const db = {
+        "hierro": { precio: 5, info: "Se compra como chatarra ferrosa. Debe estar libre de tierra.", ley: "Ley 1288: Entrega libre." },
+        "cobre": { precio: 150, info: "Material de alto valor (No ferroso).", ley: "¡ATENCIÓN! Requiere carnet y procedencia legal." },
+        "aluminio": { precio: 25, info: "Latas y perfiles. Deben estar limpios.", ley: "Fomenta la sustitución de importaciones." },
+        "carton": { precio: 3.50, info: "Cajas corrugadas secas.", ley: "Prioridad para la industria nacional." },
+        "papel": { precio: 2, info: "Libretas, periódicos y archivos.", ley: "Debe entregarse sin espirales plásticos." },
+        "plastico": { precio: 8, info: "Botellas PET y envases de aseo.", ley: "Ayuda a descontaminar nuestras costas." },
+        "chatarra": { precio: 15, info: "Componentes de PC, TV y equipos.", ley: "Manejo especial por metales pesados." }
+    };
+
+    function enviar() {
+        const input = document.getElementById('userInput');
+        const msn = input.value.toLowerCase().trim();
+        if(!msn) return;
+
+        agregarMensaje(input.value, 'user');
+        input.value = '';
+
+        setTimeout(() => {
+            const respuesta = procesarLogica(msn);
+            agregarMensaje(respuesta, 'bot');
+        }, 600);
+    }
+
+    function procesarLogica(msn) {
+        // Lógica de búsqueda de palabras clave
+        for (let material in db) {
+            if (msn.includes(material)) {
+                return `🔎 **${material.toUpperCase()}**:\n- ${db[material].info}\n- Precio est.: ${db[material].precio} CUP/kg.\n- ${db[material].ley}`;
+            }
+        }
+        
+        if (msn.includes("precio")) return "Puedes consultar precios de: hierro, cobre, aluminio, papel, carton, plastico o chatarra.";
+        if (msn.includes("hola")) return "¡Hola! ¿Qué material tienes para reciclar hoy en Villa Clara?";
+        
+        return "No estoy seguro de ese material. Por favor, menciona uno de los materiales oficiales de la ERMP.";
+    }
+
+    function agregarMensaje(texto, tipo) {
+        const win = document.getElementById('chat-window');
+        const div = document.createElement('div');
+        div.className = `msg ${tipo}`;
+        div.innerText = texto;
+        win.appendChild(div);
+        win.scrollTop = win.scrollHeight;
+    }
+</script>
+
+</body>
+</html>
