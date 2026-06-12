@@ -1,4 +1,4 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -24,7 +24,7 @@ html_content = """<!DOCTYPE html>
         .chat-card { 
             width: 100%; 
             max-width: 480px; 
-            height: 650px; 
+            height: 680px; 
             background: white; 
             border-radius: 20px; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
@@ -38,6 +38,20 @@ html_content = """<!DOCTYPE html>
             padding: 15px; 
             text-align: center; 
             border-bottom: 4px solid var(--red); 
+        }
+        .info-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 11px;
+            margin-top: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .info-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
         #chat-window { 
             flex: 1; 
@@ -83,7 +97,7 @@ html_content = """<!DOCTYPE html>
             outline: none; 
             font-size: 14px;
         }
-        button { 
+        button.send-btn { 
             background: var(--blue); 
             color: white; 
             border: none; 
@@ -93,8 +107,13 @@ html_content = """<!DOCTYPE html>
             font-weight: bold;
             transition: background 0.2s;
         }
-        button:hover {
+        button.send-btn:hover {
             background: #13406b;
+        }
+        a {
+            color: #1A568F;
+            text-decoration: underline;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -104,17 +123,19 @@ html_content = """<!DOCTYPE html>
     <div class="header">
         <strong style="font-size: 16px;">EcoBot Villa Clara</strong>
         <p style="font-size: 11px; margin: 4px 0 0 0; opacity: 0.9;">ERMP - Lista Oficial de Compra a la Población</p>
+        <button class="info-btn" onclick="mostrarContacto()">Ver Info de Contacto 📞</button>
     </div>
     <div id="chat-window">
-        <div class="msg bot">¡Hola! Soy EcoBot. Escribe el material o envase que deseas reciclar (ej: "cobre", "botella de ron", "lata", "plastico") para conocer su precio oficial de compra en CUP.</div>
+        <div class="msg bot">¡Hola! Soy EcoBot. Escribe el material o envase que deseas reciclar (ej: "cobre", "botella de ron", "lata", "plastico") para conocer su precio de compra.<br><br>También puedes preguntar por nuestro <b>horario</b>, <b>dirección</b> o <b>teléfono</b>.</div>
     </div>
     <div class="input-area">
-        <input type="text" id="userInput" placeholder="Escriba el material aquí...">
-        <button onclick="enviar()">Enviar</button>
+        <input type="text" id="userInput" placeholder="Escriba aquí o pregunte por contacto...">
+        <button class="send-btn" onclick="enviar()">Enviar</button>
     </div>
 </div>
 
 <script>
+    // Base de datos oficial extraída de los listados de la ERMP Villa Clara
     const db = {
         "frasco de alimento": [
             {desc: "Frasco alimento (250 ml) sin tapa", precio: 0.80, um: "u"},
@@ -224,7 +245,7 @@ html_content = """<!DOCTYPE html>
             {desc: "Chatarra de Hierro Fundido a la medida (Población)", precio: 0.70, um: "kg"}
         ],
         "aluminio": [
-            {desc: "Chatarra de aluminio, utensilios y láminas viejas", precio: 71.40, um: "kg"},
+            {desc: "Chatarra de aluminio, utensils y láminas viejas", precio: 71.40, um: "kg"},
             {desc: "Perfiles de aluminio limpios", precio: 42.00, um: "kg"},
             {desc: "Aluminio fundido (Máx 2% de acero: pistones, cárter)", precio: 71.40, um: "kg"},
             {desc: "Radiadores de aluminio con contenido de cobre", precio: 19.00, um: "kg"},
@@ -277,11 +298,27 @@ html_content = """<!DOCTYPE html>
         ]
     };
 
+    // Bloque de texto reutilizable con los datos de contacto institucionales
+    const infoContactoHTML = `📞 <b>Información Institucional de la ERMP VC:</b><br><br>
+        • <b>Centro de Dirección:</b> <a href="tel:53257421">53257421</a><br>
+        • <b>Gestión Comercial:</b> <a href="tel:53257424">53257424</a><br>
+        • <b>Dirección:</b> Calle 6ta No 9 entre Final y Carretera Central Km 295. Las Minas. Santa Clara.<br>
+        • <b>Horario de atención:</b> Lunes a Viernes de 7:30 AM hasta las 4:00 PM<br>
+        • <b>Correo electrónico:</b> <a href="mailto:materiasprimas@ermpvc.co.cu">materiasprimas@ermpvc.co.cu</a><br>
+        • <b>Sitio Web Oficial:</b> <a href="http://www.ermpvc.co.cu/" target="_blank">www.ermpvc.co.cu</a><br><br>
+        📱 <b>Nuestras Redes Sociales:</b><br>
+        • <b>Facebook:</b> <a href="https://www.facebook.com/ermpvc" target="_blank">ermpvc</a><br>
+        • <b>Twitter / X:</b> <a href="https://x.com/ermpvc" target="_blank">@ermpvc</a>`;
+
     document.getElementById('userInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             enviar();
         }
     });
+
+    function mostrarContacto() {
+        agregarMensaje(infoContactoHTML, 'bot');
+    }
 
     function enviar() {
         const input = document.getElementById('userInput');
@@ -298,8 +335,23 @@ html_content = """<!DOCTYPE html>
     }
 
     function procesarLogica(msn) {
+        // Lógica de detección de palabras clave de contacto primero
+        if (msn.includes("contacto") || msn.includes("telefono") || msn.includes("numero") || msn.includes("llamar") || msn.includes("correo") || msn.includes("email") || msn.includes("sitio") || msn.includes("web")) {
+            return infoContactoHTML;
+        }
+        if (msn.includes("direccion") || msn.includes("donde queda") || msn.includes("ubicacion") || msn.includes("lugar") || msn.includes("minas")) {
+            return `📍 <b>Ubicación Oficial:</b><br>Calle 6ta No 9 entre Final y Carretera Central Km 295. Las Minas. Santa Clara, Villa Clara.`;
+        }
+        if (msn.includes("horario") || msn.includes("hora") || msn.includes("abren") || msn.includes("cierran") || msn.includes("que dia")) {
+            return `⏰ <b>Horario de atención al cliente:</b><br>Lunes a Viernes de 7:30 AM hasta las 4:00 PM.`;
+        }
+        if (msn.includes("redes") || msn.includes("facebook") || msn.includes("twitter") || msn.includes("x")) {
+            return `📱 <b>Siguenos en las Redes Sociales:</b><br><br>
+                • <b>Facebook:</b> <a href="https://www.facebook.com/ermpvc" target="_blank">https://www.facebook.com/ermpvc</a><br>
+                • <b>Twitter / X:</b> <a href="https://x.com/ermpvc" target="_blank">https://x.com/ermpvc</a>`;
+        }
+
         let resultados = [];
-        
         for (let clave in db) {
             if (msn.includes(clave)) {
                 resultados = db[clave];
@@ -320,10 +372,10 @@ html_content = """<!DOCTYPE html>
             return "Puedo darte precios de: <b>vidrio</b> (frascos, botellas de ron, cerveza, Parranda, vino), <b>plásticos</b> (PET, bidones, PP), <b>papel, cartón, textiles</b> o <b>chatarras</b> (cobre, aluminio, bronce, acero, plomo, electrónica, celulares). ¿Qué tienes para vender?";
         }
         if (msn.includes("hola") || msn.includes("buenos")) {
-            return "¡Hola! ¿Qué materias primes o envases reciclables tienes hoy en Villa Clara? Dime el nombre y te consulto el precio oficial.";
+            return "¡Hola! ¿Qué materias primas o envases reciclables tienes hoy en Villa Clara? Dime el nombre y te consulto el precio oficial o la información de contacto de la entidad.";
         }
         
-        return "No tengo registrado ese material específico. Por favor, intente escribiendo palabras clave como: <i>cobre, aluminio, lata, botella de ron, cerveza, plastico, carton, papel, celulares</i>, etc.";
+        return "No tengo registrado ese material específico. Por favor, intente escribiendo palabras clave como: <i>cobre, aluminio, lata, botella de ron, plastico, carton, o 'contacto'</i> para ver las vías de comunicación.";
     }
 
     function agregarMensaje(texto, tipo) {
@@ -337,8 +389,4 @@ html_content = """<!DOCTYPE html>
 </script>
 
 </body>
-</html>"""
-
-with open("EcoBot_Villa_Clara.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
-print("File successfully generated.")
+</html>
