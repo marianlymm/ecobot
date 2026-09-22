@@ -1,266 +1,835 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico de Comunicación Social - ERMP Villa Clara</title>
-    <!-- Tailwind CSS desde CDN -->
-    <script src=https://formspree.io/f/xvkgadye></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        ermpBlue: '#0A2540',
-                        ermpGreen: '#107C41',
-                        ermpRed: '#D9381E',
-                        ermpLight: '#F4F7F9'
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- FontAwesome para íconos -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #0A2540 0%, #107C41 100%);
-        }
-        .form-card {
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
-        }
-    </style>
-</head>
-<body class="bg-ermpLight text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico de Comunicación Social - ERMP Villa Clara</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #003B70;
+      --primary-hover: #00284d;
+      --secondary-color: #1B5E20;
+      --accent-color: #C62828;
+      --bg-color: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --text-main: #2C3E50;
+      --text-muted: #6C757D;
+      --border-color: #E2E8F0;
+      --radius-lg: 16px;
+      --radius-md: 8px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+    }
 
-    <!-- Encabezado Institucional -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
-        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <!-- Espacio para el Logo ERMP Villa Clara -->
-                <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center border border-slate-200 overflow-hidden">
-                    <img src="logo.png" alt="ERMP Villa Clara" class="object-contain max-h-full max-w-full" onerror="this.src='https://via.placeholder.com/100?text=ERMP';">
-                </div>
-                <div>
-                    <h1 class="text-base sm:text-lg font-bold text-ermpBlue leading-tight">ERMP Villa Clara</h1>
-                    <p class="text-xs text-slate-500">Empresa Recicladora de Materias Primas</p>
-                </div>
-            </div>
-            <span class="text-xs font-semibold px-2.5 py-1 bg-green-100 text-ermpGreen rounded-full border border-green-200">
-                <i class="fa-solid fa-lock mr-1"></i> Anónimo
-            </span>
-        </div>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 20px 10px;
+    }
+
+    .app-container {
+      max-width: 850px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Header Styling */
+    .app-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #002244 100%);
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    .logo-container {
+      margin-bottom: 15px;
+    }
+
+    .logo-container img {
+      max-width: 140px;
+      height: auto;
+      background: white;
+      padding: 8px;
+      border-radius: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .app-header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .app-header p {
+      font-size: 0.88rem;
+      opacity: 0.9;
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    .law-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      margin-top: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      background: #E9ECEF;
+      height: 8px;
+      width: 100%;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--secondary-color);
+      width: 25%;
+      transition: var(--transition);
+    }
+
+    /* Navigation Tabs Header */
+    .steps-indicator {
+      display: flex;
+      justify-content: space-around;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 5px;
+    }
+
+    .step-tab {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .step-tab.active {
+      color: var(--primary-color);
+    }
+
+    .step-tab .number {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+    }
+
+    .step-tab.active .number {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* Form Body */
+    .form-step {
+      display: none;
+      padding: 30px;
+    }
+
+    .form-step.active {
+      display: block;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Form Controls */
+    .question-card {
+      background: #F8FAFC;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .question-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .question-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .options-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .radio-btn, .checkbox-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: white;
+      border: 1px solid var(--border-color);
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .radio-btn:hover, .checkbox-btn:hover {
+      border-color: var(--primary-color);
+      background: #F0F4F8;
+    }
+
+    .radio-btn input, .checkbox-btn input {
+      accent-color: var(--primary-color);
+    }
+
+    textarea, input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      background: white;
+    }
+
+    textarea:focus, input[type="text"]:focus, input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 59, 112, 0.1);
+    }
+
+    .error-msg {
+      color: var(--accent-color);
+      font-size: 0.78rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    /* Matrix Table Style */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 0.85rem;
+    }
+
+    .matrix-table th, .matrix-table td {
+      padding: 12px 8px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .matrix-table th {
+      background: #EDF2F7;
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .matrix-table td:first-child {
+      text-align: left;
+      font-weight: 500;
+      max-width: 250px;
+    }
+
+    .matrix-table input[type="radio"] {
+      accent-color: var(--primary-color);
+      transform: scale(1.2);
+    }
+
+    /* Channel Grid */
+    .channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+    }
+
+    .channel-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+    }
+
+    .channel-item label {
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .channel-item input[type="number"] {
+      width: 55px;
+      padding: 6px;
+      text-align: center;
+    }
+
+    /* Dynamic Lists */
+    .input-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Footer Buttons */
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 30px;
+      background: #F8FAFC;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .btn-secondary {
+      background: #E2E8F0;
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: #CBD5E1;
+    }
+
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-submit {
+      background: var(--secondary-color);
+      color: white;
+    }
+
+    .btn-submit:hover {
+      background: #144718;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .form-step { padding: 15px; }
+      .matrix-table { font-size: 0.75rem; }
+      .matrix-table th, .matrix-table td { padding: 8px 4px; }
+      .step-tab span { display: none; }
+      .channels-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-container">
+        <img src="../logo.png" alt="ERMP Villa Clara" onerror="this.onerror=null; this.src='https://via.placeholder.com/140x60?text=ERMP+Logo';">
+      </div>
+      <h1>Diagnóstico de Comunicación Social</h1>
+      <p>Cuestionario anónimo para trabajadores de la Empresa de Recuperación de Materias Primas Villa Clara</p>
+      <span class="law-badge"><i class="fa-solid fa-scale-balanced"></i> Ley 162/2023 de Comunicación Social</span>
     </header>
 
-    <!-- Banner Informativo Ley 162/2023 -->
-    <section class="gradient-bg text-white py-8 px-4 text-center">
-        <div class="max-w-3xl mx-auto space-y-2">
-            <span class="bg-white/20 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-wider">Ley 162/2023</span>
-            <h2 class="text-xl sm:text-2xl font-extrabold">Diagnóstico del Sistema de Comunicación Social</h2>
-            <p class="text-sm opacity-90 leading-relaxed max-w-2xl mx-auto">
-                Este cuestionario forma parte de una investigación sobre el funcionamiento de la comunicación institucional. Sus respuestas son estrictamente sinceras e identifican oportunidades de mejora.
-            </p>
+    <!-- Progress Bar -->
+    <div class="progress-bar-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Steps Indicator -->
+    <div class="steps-indicator">
+      <div class="step-tab active" id="tab1"><span class="number">1</span> <span>Canales</span></div>
+      <div class="step-tab" id="tab2"><span class="number">2</span> <span>Participación</span></div>
+      <div class="step-tab" id="tab3"><span class="number">3</span> <span>Diagnóstico</span></div>
+      <div class="step-tab" id="tab4"><span class="number">4</span> <span>Evaluación</span></div>
+    </div>
+
+    <!-- Form -->
+    <form id="quizForm" action="https://formspree.io/f/TU_ENDPOINT_AQUI" method="POST">
+
+      <!-- STEP 1: CANALES Y FLUJOS -->
+      <div class="form-step active" id="step1">
+        <h2 class="step-title"><i class="fa-solid fa-satellite-dish"></i> 1. Flujos y Canales Informativos</h2>
+
+        <!-- Q1 -->
+        <div class="question-card">
+          <div class="question-title">1. ¿Cree que la comunicación es importante para su trabajo?</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p1_importancia" value="Sí" required> Sí</label>
+            <label class="radio-btn"><input type="radio" name="p1_importancia" value="No"> No</label>
+          </div>
         </div>
-    </section>
 
-    <!-- Formulario Principal -->
-    <main class="max-w-3xl mx-auto px-4 py-8 w-full">
-        <form action="https://formspree.io/f/TU_ENDPOINT_AQUI" method="POST" id="surveyForm" class="space-y-6">
-            
-            <!-- Campo Oculto para Asunto de Correo -->
-            <input type="hidden" name="_subject" value="Nueva Respuesta: Cuestionario de Comunicación Social ERMP">
+        <!-- Q2 -->
+        <div class="question-card">
+          <div class="question-title">2. ¿Qué entiende usted por comunicación?</div>
+          <textarea name="p2_concepto" rows="3" class="only-text" placeholder="Escriba su concepto aquí (solo letras)..." required></textarea>
+          <div class="error-msg">No se permiten números en este campo.</div>
+        </div>
 
-            <!-- Bloque 1: Generalidades -->
-            <div class="bg-white p-6 rounded-2xl form-card border border-slate-100 space-y-4">
-                <div class="flex items-center space-x-2 text-ermpBlue border-b pb-3 border-slate-100">
-                    <i class="fa-solid fa-comments text-lg"></i>
-                    <h3 class="font-bold text-lg">1. Aspectos Generales</h3>
-                </div>
+        <!-- Q3 -->
+        <div class="question-card">
+          <div class="question-title">3. Las informaciones que recibe generalmente vienen de:</div>
+          <div class="options-group">
+            <label class="checkbox-btn"><input type="checkbox" name="p3_origen[]" value="Superiores"> Superiores</label>
+            <label class="checkbox-btn"><input type="checkbox" name="p3_origen[]" value="Compañeros"> Compañeros con sus mismas responsabilidades</label>
+            <label class="checkbox-btn"><input type="checkbox" name="p3_origen[]" value="Otros"> Otros</label>
+          </div>
+          <input type="text" name="p3_origen_otros" class="only-text" style="margin-top:10px;" placeholder="Especificar otros (solo letras)...">
+        </div>
 
-                <!-- Pregunta 1 -->
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">1. ¿Cree que la comunicación es importante para su trabajo?</label>
-                    <div class="flex gap-4">
-                        <label class="flex items-center space-x-2 cursor-pointer border p-3 rounded-xl flex-1 justify-center hover:bg-slate-50 transition">
-                            <input type="radio" name="p1_importancia" value="Sí" required class="accent-ermpGreen">
-                            <span class="text-sm font-medium">Sí</span>
-                        </label>
-                        <label class="flex items-center space-x-2 cursor-pointer border p-3 rounded-xl flex-1 justify-center hover:bg-slate-50 transition">
-                            <input type="radio" name="p1_importancia" value="No" class="accent-ermpRed">
-                            <span class="text-sm font-medium">No</span>
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Pregunta 2 -->
-                <div>
-                    <label for="p2" class="block text-sm font-medium text-slate-700 mb-1">2. ¿Qué entiende usted por comunicación?</label>
-                    <textarea id="p2" name="p2_definicion" rows="3" required placeholder="Escriba su concepto aquí..." class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:ring-2 focus:ring-ermpBlue focus:border-transparent outline-none transition"></textarea>
-                </div>
+        <!-- Q4 -->
+        <div class="question-card">
+          <div class="question-title">4. Medios o canales por los que recibe información</div>
+          <div class="question-desc">Asigne un número según el orden de importancia para usted (1 = más importante):</div>
+          <div class="channels-grid">
+            <div class="channel-item"><label><i class="fa-solid fa-users"></i> Reuniones</label><input type="number" name="p4_orden[Reuniones]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-envelope"></i> Correo Electrónico</label><input type="number" name="p4_orden[Correo]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-sun"></i> Matutinos</label><input type="number" name="p4_orden[Matutinos]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-globe"></i> Páginas Web</label><input type="number" name="p4_orden[Web]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-comments"></i> Rumores</label><input type="number" name="p4_orden[Rumores]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-mug-hot"></i> Encuentros Informales</label><input type="number" name="p4_orden[Informales]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-chalkboard"></i> Murales</label><input type="number" name="p4_orden[Murales]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-box-archive"></i> Buzones de Quejas</label><input type="number" name="p4_orden[Buzones]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-file-lines"></i> Circulares</label><input type="number" name="p4_orden[Circulares]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-newspaper"></i> Boletines</label><input type="number" name="p4_orden[Boletines]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-phone"></i> Teléfono</label><input type="number" name="p4_orden[Telefono]" min="1" max="12" class="num-order"></div>
+            <div class="channel-item"><label><i class="fa-solid fa-comment-dots"></i> Chat / Whatsapp</label><input type="number" name="p4_orden[Chat]" min="1" max="12" class="num-order"></div>
+          </div>
+          <div style="margin-top: 15px;">
+            <label><strong>¿Son suficientes estos canales?</strong></label>
+            <div class="options-group" style="margin-top: 5px;">
+              <label class="radio-btn"><input type="radio" name="p4a_suficientes" value="Sí"> Sí</label>
+              <label class="radio-btn"><input type="radio" name="p4a_suficientes" value="No"> No</label>
             </div>
+          </div>
+        </div>
 
-            <!-- Bloque 2: Flujo de Información -->
-            <div class="bg-white p-6 rounded-2xl form-card border border-slate-100 space-y-5">
-                <div class="flex items-center space-x-2 text-ermpBlue border-b pb-3 border-slate-100">
-                    <i class="fa-solid fa-sitemap text-lg"></i>
-                    <h3 class="font-bold text-lg">2. Flujo y Canales de Información</h3>
-                </div>
+        <!-- Q5 -->
+        <div class="question-card">
+          <div class="question-title">5. ¿Cuáles son las informaciones más frecuentes que recibe?</div>
+          <div class="options-group">
+            <label class="checkbox-btn"><input type="checkbox" name="p5_tipo_info[]" value="Personales"> Personales</label>
+            <label class="checkbox-btn"><input type="checkbox" name="p5_tipo_info[]" value="Orientacion"> De orientación / cumplimiento del trabajo</label>
+            <label class="checkbox-btn"><input type="checkbox" name="p5_tipo_info[]" value="Opiniones"> Opiniones, sugerencias o quejas acerca del trabajo</label>
+          </div>
+        </div>
+      </div>
 
-                <!-- Pregunta 3 -->
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-2">3. Las informaciones que recibe generalmente vienen de:</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <label class="flex items-center space-x-2 border p-3 rounded-xl hover:bg-slate-50">
-                            <input type="checkbox" name="p3_origen[]" value="Superiores" class="rounded accent-ermpBlue">
-                            <span class="text-sm">Superiores</span>
-                        </label>
-                        <label class="flex items-center space-x-2 border p-3 rounded-xl hover:bg-slate-50">
-                            <input type="checkbox" name="p3_origen[]" value="Compañeros" class="rounded accent-ermpBlue">
-                            <span class="text-sm">Compañeros de trabajo</span>
-                        </label>
-                    </div>
-                    <div class="mt-2">
-                        <input type="text" name="p3_otros" placeholder="Otros (Especifique con letras)" oninput="this.value = this.value.replace(/[0-9]/g, '')" class="w-full text-sm border border-slate-300 p-2.5 rounded-xl outline-none focus:ring-1 focus:ring-ermpBlue">
-                    </div>
-                </div>
+      <!-- STEP 2: PARTICIPACIÓN Y TOMA DE DECISIONES -->
+      <div class="form-step" id="step2">
+        <h2 class="step-title"><i class="fa-solid fa-people-arrows"></i> 2. Opiniones y Toma de Decisiones</h2>
 
-                <!-- Pregunta 4 -->
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">4. Canales de información más utilizados:</label>
-                    <p class="text-xs text-slate-500 mb-3">Enumere según importancia (1 para el más importante, 2, 3... solo números).</p>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_reuniones" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Reuniones</span>
-                        </div>
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_correo" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Correo Electrónico</span>
-                        </div>
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_matutinos" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Matutinos</span>
-                        </div>
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_web" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Páginas Web</span>
-                        </div>
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_rumores" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Rumores</span>
-                        </div>
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_murales" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Murales</span>
-                        </div>
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_buzones" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Buzones de Sugerencias</span>
-                        </div>
-                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
-                            <input type="number" name="p4_orden_chat" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                            <span>Chat Interno</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 pt-3 border-t">
-                        <label class="block text-sm font-medium text-slate-700 mb-2">a. ¿Son suficientes estos canales?</label>
-                        <div class="flex gap-4">
-                            <label class="flex items-center space-x-2"><input type="radio" name="p4a_suficientes" value="Sí" class="accent-ermpGreen"><span class="text-sm">Sí</span></label>
-                            <label class="flex items-center space-x-2"><input type="radio" name="p4a_suficientes" value="No" class="accent-ermpRed"><span class="text-sm">No</span></label>
-                        </div>
-                    </div>
-                </div>
+        <!-- Q6 -->
+        <div class="question-card">
+          <div class="question-title">6. ¿Se tienen en cuenta sus opiniones y sugerencias para la toma de decisiones?</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p6_opiniones" value="Sí"> Sí</label>
+            <label class="radio-btn"><input type="radio" name="p6_opiniones" value="A veces"> A veces</label>
+            <label class="radio-btn"><input type="radio" name="p6_opiniones" value="No"> No</label>
+          </div>
+          <div style="margin-top:15px;">
+            <label class="question-desc">a. ¿A través de qué vías transmite esas sugerencias?</label>
+            <div class="input-list">
+              <input type="text" name="p6a_vias[]" class="only-text" placeholder="Vía 1 (solo letras)...">
+              <input type="text" name="p6a_vias[]" class="only-text" placeholder="Vía 2 (solo letras)...">
+              <input type="text" name="p6a_vias[]" class="only-text" placeholder="Vía 3 (solo letras)...">
             </div>
+          </div>
+        </div>
 
-            <!-- Bloque 3: Escalas de Evaluación (Preguntas 7 y 19) -->
-            <div class="bg-white p-6 rounded-2xl form-card border border-slate-100 space-y-6">
-                <div class="flex items-center space-x-2 text-ermpBlue border-b pb-3 border-slate-100">
-                    <i class="fa-solid fa-chart-simple text-lg"></i>
-                    <h3 class="font-bold text-lg">3. Evaluación Institucional</h3>
-                </div>
+        <!-- Q7 (Matriz) -->
+        <div class="question-card">
+          <div class="question-title">7. En su institución: (Seleccione una respuesta por afirmación)</div>
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Afirmación</th>
+                <th>Nunca (1)</th>
+                <th>A veces (2)</th>
+                <th>Siempre (3)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Las decisiones están completamente centralizadas en la dirección.</td>
+                <td><input type="radio" name="p7_centralizadas" value="1"></td>
+                <td><input type="radio" name="p7_centralizadas" value="2"></td>
+                <td><input type="radio" name="p7_centralizadas" value="3"></td>
+              </tr>
+              <tr>
+                <td>Una vez tomada la decisión, nada puede cambiarla.</td>
+                <td><input type="radio" name="p7_incambiables" value="1"></td>
+                <td><input type="radio" name="p7_incambiables" value="2"></td>
+                <td><input type="radio" name="p7_incambiables" value="3"></td>
+              </tr>
+              <tr>
+                <td>Las decisiones pueden modificarse como resultado de consultas con los trabajadores.</td>
+                <td><input type="radio" name="p7_consultadas" value="1"></td>
+                <td><input type="radio" name="p7_consultadas" value="2"></td>
+                <td><input type="radio" name="p7_consultadas" value="3"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-                <!-- Pregunta 7 -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-3">7. Tome en cuenta el funcionamiento de las decisiones:</label>
-                    <div class="space-y-4 text-sm">
-                        <div class="bg-slate-50 p-3 rounded-xl">
-                            <p class="mb-2 font-medium">A. Las decisiones están completamente centralizadas en la dirección.</p>
-                            <div class="flex justify-around text-xs">
-                                <label><input type="radio" name="p7_centralizadas" value="1" class="accent-ermpBlue"> 1 (Nunca)</label>
-                                <label><input type="radio" name="p7_centralizadas" value="2" class="accent-ermpBlue"> 2 (A veces)</label>
-                                <label><input type="radio" name="p7_centralizadas" value="3" class="accent-ermpBlue"> 3 (Siempre)</label>
-                            </div>
-                        </div>
-                        <div class="bg-slate-50 p-3 rounded-xl">
-                            <p class="mb-2 font-medium">B. Las decisiones pueden modificarse como resultado de consultas con trabajadores.</p>
-                            <div class="flex justify-around text-xs">
-                                <label><input type="radio" name="p7_modificables" value="1" class="accent-ermpBlue"> 1 (Nunca)</label>
-                                <label><input type="radio" name="p7_modificables" value="2" class="accent-ermpBlue"> 2 (A veces)</label>
-                                <label><input type="radio" name="p7_modificables" value="3" class="accent-ermpBlue"> 3 (Siempre)</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Pregunta 19 Matriz -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">19. Califique los siguientes aspectos en su organización:</label>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-xs text-center border-collapse">
-                            <thead>
-                                <tr class="bg-slate-100 text-slate-700">
-                                    <th class="p-2 text-left">Aspecto</th>
-                                    <th class="p-2">Muy Débil (1)</th>
-                                    <th class="p-2">Débil (2)</th>
-                                    <th class="p-2">Medio (3)</th>
-                                    <th class="p-2">Fuerte (4)</th>
-                                    <th class="p-2">Muy Fuerte (5)</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-slate-100">
-                                <tr>
-                                    <td class="p-2 text-left font-medium">Motivación</td>
-                                    <td><input type="radio" name="p19_motivacion" value="1"></td>
-                                    <td><input type="radio" name="p19_motivacion" value="2"></td>
-                                    <td><input type="radio" name="p19_motivacion" value="3"></td>
-                                    <td><input type="radio" name="p19_motivacion" value="4"></td>
-                                    <td><input type="radio" name="p19_motivacion" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 text-left font-medium">Condiciones de trabajo</td>
-                                    <td><input type="radio" name="p19_condiciones" value="1"></td>
-                                    <td><input type="radio" name="p19_condiciones" value="2"></td>
-                                    <td><input type="radio" name="p19_condiciones" value="3"></td>
-                                    <td><input type="radio" name="p19_condiciones" value="4"></td>
-                                    <td><input type="radio" name="p19_condiciones" value="5"></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-2 text-left font-medium">Estilos de dirección</td>
-                                    <td><input type="radio" name="p19_estilos_direccion" value="1"></td>
-                                    <td><input type="radio" name="p19_estilos_direccion" value="2"></td>
-                                    <td><input type="radio" name="p19_estilos_direccion" value="3"></td>
-                                    <td><input type="radio" name="p19_estilos_direccion" value="4"></td>
-                                    <td><input type="radio" name="p19_estilos_direccion" value="5"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Pregunta 20a Validada para Letras/Adjetivos -->
-                <div>
-                    <label for="p20a" class="block text-sm font-medium text-slate-700 mb-1">20a. Diga través de adjetivos (solo letras) cómo le gustaría que fuera su organización:</label>
-                    <input type="text" id="p20a" name="p20a_adjetivos" placeholder="Ej: Transparente, eficiente, unida" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s,]/g, '')" class="w-full text-sm border border-slate-300 p-3 rounded-xl outline-none focus:ring-2 focus:ring-ermpGreen">
-                </div>
+        <!-- Q8 -->
+        <div class="question-card">
+          <div class="question-title">8. ¿Usted recibe respuesta a sus planteamientos?</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p8_respuestas" value="Sí"> Sí</label>
+            <label class="radio-btn"><input type="radio" name="p8_respuestas" value="A veces"> A veces</label>
+            <label class="radio-btn"><input type="radio" name="p8_respuestas" value="No"> No</label>
+          </div>
+          <div style="margin-top:15px;">
+            <label class="question-desc">a. ¿Mediante qué vías las obtiene?</label>
+            <div class="input-list">
+              <input type="text" name="p8a_vias[]" class="only-text" placeholder="Vía 1...">
+              <input type="text" name="p8a_vias[]" class="only-text" placeholder="Vía 2...">
             </div>
+          </div>
+        </div>
 
-            <!-- Botón de Envío -->
-            <div class="pt-4">
-                <button type="submit" class="w-full bg-ermpGreen hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition duration-200 flex items-center justify-center space-x-2 text-base">
-                    <i class="fa-solid fa-paper-plane"></i>
-                    <span>Enviar Cuestionario a Gmail</span>
-                </button>
+        <!-- Q9 & Q10 -->
+        <div class="question-card">
+          <div class="question-title">9. ¿Qué espacios prefiere para debatir los asuntos relacionados con su trabajo?</div>
+          <div class="options-group" style="flex-direction: column;">
+            <label class="radio-btn"><input type="radio" name="p9_espacios" value="Institucionales"> Espacios determinados por la institución (reuniones, encuentros, etc.)</label>
+            <label class="radio-btn"><input type="radio" name="p9_espacios" value="Trabajadores"> Espacios creados por los trabajadores (transporte, almuerzo, etc.)</label>
+          </div>
+          <div style="margin-top: 15px;">
+            <div class="question-title">10. ¿Cuál de estos espacios considera que posee mayor calidad? ¿Por qué?</div>
+            <textarea name="p10_calidad_espacios" rows="2" placeholder="Escriba su valoración..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: FORTALEZAS Y PROBLEMAS -->
+      <div class="form-step" id="step3">
+        <h2 class="step-title"><i class="fa-solid fa-chart-line"></i> 3. Diagnóstico Institucional</h2>
+
+        <!-- Q11 -->
+        <div class="question-card">
+          <div class="question-title">11. ¿Cuáles considera que son las principales fortalezas en la comunicación?</div>
+          <div class="input-list">
+            <input type="text" name="p11_fortalezas[]" class="only-text" placeholder="1. Fortaleza (solo letras)...">
+            <input type="text" name="p11_fortalezas[]" class="only-text" placeholder="2. Fortaleza (solo letras)...">
+            <input type="text" name="p11_fortalezas[]" class="only-text" placeholder="3. Fortaleza (solo letras)...">
+          </div>
+        </div>
+
+        <!-- Q12 -->
+        <div class="question-card">
+          <div class="question-title">12. ¿Qué problemas de comunicación considera que existen en la entidad?</div>
+          <div class="input-list">
+            <input type="text" name="p12_problemas[]" class="only-text" placeholder="1. Problema (solo letras)...">
+            <input type="text" name="p12_problemas[]" class="only-text" placeholder="2. Problema (solo letras)...">
+            <input type="text" name="p12_problemas[]" class="only-text" placeholder="3. Problema (solo letras)...">
+          </div>
+        </div>
+
+        <!-- Q13, Q14, Q17 -->
+        <div class="question-card">
+          <div class="question-title">13. Situación actual de la comunicación en la Empresa:</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p13_situacion" value="Excelente"> Excelente</label>
+            <label class="radio-btn"><input type="radio" name="p13_situacion" value="En desarrollo"> En desarrollo normal y estable</label>
+            <label class="radio-btn"><input type="radio" name="p13_situacion" value="En retroceso"> En retroceso</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-title">14. ¿En qué medida se siente UD. identificado con lo que esta empresa es y representa?</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p14_pertenencia" value="Nada"> Nada</label>
+            <label class="radio-btn"><input type="radio" name="p14_pertenencia" value="Poco"> Poco</label>
+            <label class="radio-btn"><input type="radio" name="p14_pertenencia" value="Mucho"> Mucho</label>
+          </div>
+        </div>
+
+        <!-- Q15 -->
+        <div class="question-card">
+          <div class="question-title">15. Relación con su centro de trabajo:</div>
+          <div class="input-list">
+            <label class="question-desc">Lo que más le gusta:</label>
+            <input type="text" name="p15_mas_gusta" class="only-text" placeholder="Escriba aquí (solo letras)...">
+            <label class="question-desc" style="margin-top:8px;">Lo que menos le gusta:</label>
+            <input type="text" name="p15_menos_gusta" class="only-text" placeholder="Escriba aquí (solo letras)...">
+          </div>
+        </div>
+
+        <!-- Q16 & Q17 -->
+        <div class="question-card">
+          <div class="question-title">16. En igualdad de condiciones, ¿se cambiaría a otra empresa para desarrollar un trabajo similar?</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p16_cambiar" value="Sí, sin dudas"> Sí, sin dudas</label>
+            <label class="radio-btn"><input type="radio" name="p16_cambiar" value="Quizás"> Quizás</label>
+            <label class="radio-btn"><input type="radio" name="p16_cambiar" value="No sabría decir"> No sabría decir</label>
+            <label class="radio-btn"><input type="radio" name="p16_cambiar" value="Creo que no"> Creo que no</label>
+            <label class="radio-btn"><input type="radio" name="p16_cambiar" value="No, sin duda"> No, sin duda</label>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-title">17. ¿Cree UD. que la dirección se encuentra alejada de lo que ocurre en la organización?</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p17_distancia_dir" value="Muy alejada"> Muy alejada</label>
+            <label class="radio-btn"><input type="radio" name="p17_distancia_dir" value="Un poco alejada"> Un poco alejada</label>
+            <label class="radio-btn"><input type="radio" name="p17_distancia_dir" value="Nada alejada"> Nada alejada</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: EVALUACIÓN DE ASPECTOS Y VALORES -->
+      <div class="form-step" id="step4">
+        <h2 class="step-title"><i class="fa-solid fa-star"></i> 4. Valoración Institucional</h2>
+
+        <!-- Q18 -->
+        <div class="question-card">
+          <div class="question-title">18. Mencione valores de la organización:</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <label class="question-desc"><strong>Valores Compartidos</strong></label>
+              <div class="input-list" style="margin-top:5px;">
+                <input type="text" name="p18_compartidos[]" class="only-text" placeholder="1. Solo letras...">
+                <input type="text" name="p18_compartidos[]" class="only-text" placeholder="2. Solo letras...">
+                <input type="text" name="p18_compartidos[]" class="only-text" placeholder="3. Solo letras...">
+              </div>
             </div>
-        </form>
+            <div>
+              <label class="question-desc"><strong>Valores Deseados</strong></label>
+              <div class="input-list" style="margin-top:5px;">
+                <input type="text" name="p18_deseados[]" class="only-text" placeholder="1. Solo letras...">
+                <input type="text" name="p18_deseados[]" class="only-text" placeholder="2. Solo letras...">
+                <input type="text" name="p18_deseados[]" class="only-text" placeholder="3. Solo letras...">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Q19 (Matriz 1 a 5) -->
+        <div class="question-card">
+          <div class="question-title">19. Valore los siguientes aspectos en su organización:</div>
+          <div style="overflow-x:auto;">
+            <table class="matrix-table">
+              <thead>
+                <tr>
+                  <th>Aspecto</th>
+                  <th>Muy Débil (1)</th>
+                  <th>Débil (2)</th>
+                  <th>Medio (3)</th>
+                  <th>Fuerte (4)</th>
+                  <th>Muy Fuerte (5)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <script>
+                  const aspectos = [
+                    "Equipamiento", "Motivación", "Condiciones de trabajo",
+                    "Preparación del personal", "Disciplina Laboral", "Prestigio",
+                    "Calidad del servicio", "Superación Profesional", "Innovación", "Estilos de dirección"
+                  ];
+                  aspectos.forEach((asp, i) => {
+                    document.write(`
+                      <tr>
+                        <td>${asp}</td>
+                        <td><input type="radio" name="p19_[${asp}]" value="1"></td>
+                        <td><input type="radio" name="p19_[${asp}]" value="2"></td>
+                        <td><input type="radio" name="p19_[${asp}]" value="3"></td>
+                        <td><input type="radio" name="p19_[${asp}]" value="4"></td>
+                        <td><input type="radio" name="p19_[${asp}]" value="5"></td>
+                      </tr>
+                    `);
+                  });
+                </script>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Q20 & Q20a -->
+        <div class="question-card">
+          <div class="question-title">20. ¿Qué imagen cree UD. que ofrece su entidad?</div>
+          <div class="options-group">
+            <label class="radio-btn"><input type="radio" name="p20_imagen" value="Mal"> Mal</label>
+            <label class="radio-btn"><input type="radio" name="p20_imagen" value="Regular"> Regular</label>
+            <label class="radio-btn"><input type="radio" name="p20_imagen" value="Buena"> Buena</label>
+            <label class="radio-btn"><input type="radio" name="p20_imagen" value="Muy buena"> Muy buena</label>
+            <label class="radio-btn"><input type="radio" name="p20_imagen" value="Excelente"> Excelente</label>
+          </div>
+          <div style="margin-top:15px;">
+            <label class="question-desc">a. Diga, a través de adjetivos, cómo le gustaría que fuera su organización:</label>
+            <div class="input-list">
+              <input type="text" name="p20a_adjetivos[]" class="only-text" placeholder="1. Adjetivo (solo letras)...">
+              <input type="text" name="p20a_adjetivos[]" class="only-text" placeholder="2. Adjetivo (solo letras)...">
+              <input type="text" name="p20a_adjetivos[]" class="only-text" placeholder="3. Adjetivo (solo letras)...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Buttons -->
+      <footer class="form-footer">
+        <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)"><i class="fa-solid fa-arrow-left"></i> Anterior</button>
+        <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Siguiente <i class="fa-solid fa-arrow-right"></i></button>
+        <button type="submit" class="btn btn-submit" id="submitBtn" style="display:none;"><i class="fa-solid fa-paper-plane"></i> Enviar Formulario</button>
+      </footer>
+
+    </form>
+  </div>
+
+  <!-- JavaScript Validation & Wizard Logic -->
+  <script>
+    let currentStep = 0;
+    showStep(currentStep);
+
+    function showStep(n) {
+      const steps = document.getElementsByClassName("form-step");
+      const tabs = document.getElementsByClassName("step-tab");
+
+      steps[n].classList.add("active");
+
+      // Buttons Control
+      document.getElementById("prevBtn").style.display = (n === 0) ? "none" : "inline-flex";
+      if (n === (steps.length - 1)) {
+        document.getElementById("nextBtn").style.display = "none";
+        document.getElementById("submitBtn").style.display = "inline-flex";
+      } else {
+        document.getElementById("nextBtn").style.display = "inline-flex";
+        document.getElementById("submitBtn").style.display = "none";
+      }
+
+      // Progress bar & tabs update
+      document.getElementById("progressBar").style.width = ((n + 1) / steps.length * 100) + "%";
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("active");
+      }
+      tabs[n].classList.add("active");
+    }
+
+    function nextPrev(n) {
+      const steps = document.getElementsByClassName("form-step");
+
+      // Validate before proceeding
+      if (n === 1 && !validateStep()) return false;
+
+      steps[currentStep].classList.remove("active");
+      currentStep = currentStep + n;
+
+      showStep(currentStep);
+    }
+
+    function validateStep() {
+      // Step-specific validation rules
+      let valid = true;
+      const currentFormStep = document.getElementsByClassName("form-step")[currentStep];
+      const requiredInputs = currentFormStep.querySelectorAll("[required]");
+
+      requiredInputs.forEach(input => {
+        if (!input.value.trim()) {
+          input.style.borderColor = "var(--accent-color)";
+          valid = false;
+        } else {
+          input.style.borderColor = "var(--border-color)";
+        }
+      });
+
+      if (!valid) {
+        alert("Por favor, complete los campos obligatorios antes de continuar.");
+      }
+      return valid;
+    }
+
+    // REAL-TIME VALIDATION: BLOCK NUMBERS IN TEXT FIELDS
+    document.addEventListener("DOMContentLoaded", () => {
+      const textOnlyInputs = document.querySelectorAll(".only-text");
+
+      textOnlyInputs.forEach(input => {
+        input.addEventListener("input", (e) => {
+          // Removes any number typed into the field
+          const sanitizedValue = e.target.value.replace(/[0-9]/g, '');
+          if (e.target.value !== sanitizedValue) {
+            e.target.value = sanitizedValue;
+            const errorElement = e.target.nextElementSibling;
+            if (errorElement && errorElement.classList.contains("error-msg")) {
+              errorElement.style.display = "block";
+              setTimeout(() => { errorElement.style.display = "none"; }, 2000);
+            }
+          }
+        });
+      });
+
+      // VALIDATION: PREVENT DUPLICATE PRIORITIES IN QUESTION 4
+      const numOrderInputs = document.querySelectorAll(".num-order");
+      numOrderInputs.forEach(input => {
+        input.addEventListener("change", (e) => {
+          const val = e.target.value;
+          if (val) {
+            numOrderInputs.forEach(otherInput => {
+              if (otherInput !== e.target && otherInput.value === val) {
+                alert(`El número de prioridad ${val} ya ha sido asignado a otro canal.`);
+                e.target.value = "";
+              }
+            });
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
