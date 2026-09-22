@@ -1,1 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico de Comunicación Social - ERMP Villa Clara</title>
+    <!-- Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ermpBlue: '#0A2540',
+                        ermpGreen: '#107C41',
+                        ermpRed: '#D9381E',
+                        ermpLight: '#F4F7F9'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0A2540 0%, #107C41 100%);
+        }
+        .form-card {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+    </style>
+</head>
+<body class="bg-ermpLight text-slate-800 font-sans min-h-screen flex flex-col justify-between">
 
+    <!-- Encabezado Institucional -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- Espacio para el Logo ERMP Villa Clara -->
+                <div class="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center border border-slate-200 overflow-hidden">
+                    <img src="logo.png" alt="ERMP Villa Clara" class="object-contain max-h-full max-w-full" onerror="this.src='https://via.placeholder.com/100?text=ERMP';">
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-ermpBlue leading-tight">ERMP Villa Clara</h1>
+                    <p class="text-xs text-slate-500">Empresa Recicladora de Materias Primas</p>
+                </div>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 bg-green-100 text-ermpGreen rounded-full border border-green-200">
+                <i class="fa-solid fa-lock mr-1"></i> Anónimo
+            </span>
+        </div>
+    </header>
+
+    <!-- Banner Informativo Ley 162/2023 -->
+    <section class="gradient-bg text-white py-8 px-4 text-center">
+        <div class="max-w-3xl mx-auto space-y-2">
+            <span class="bg-white/20 text-xs uppercase px-3 py-1 rounded-full font-semibold tracking-wider">Ley 162/2023</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold">Diagnóstico del Sistema de Comunicación Social</h2>
+            <p class="text-sm opacity-90 leading-relaxed max-w-2xl mx-auto">
+                Este cuestionario forma parte de una investigación sobre el funcionamiento de la comunicación institucional. Sus respuestas son estrictamente sinceras e identifican oportunidades de mejora.
+            </p>
+        </div>
+    </section>
+
+    <!-- Formulario Principal -->
+    <main class="max-w-3xl mx-auto px-4 py-8 w-full">
+        <form action="https://formspree.io/f/TU_ENDPOINT_AQUI" method="POST" id="surveyForm" class="space-y-6">
+            
+            <!-- Campo Oculto para Asunto de Correo -->
+            <input type="hidden" name="_subject" value="Nueva Respuesta: Cuestionario de Comunicación Social ERMP">
+
+            <!-- Bloque 1: Generalidades -->
+            <div class="bg-white p-6 rounded-2xl form-card border border-slate-100 space-y-4">
+                <div class="flex items-center space-x-2 text-ermpBlue border-b pb-3 border-slate-100">
+                    <i class="fa-solid fa-comments text-lg"></i>
+                    <h3 class="font-bold text-lg">1. Aspectos Generales</h3>
+                </div>
+
+                <!-- Pregunta 1 -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">1. ¿Cree que la comunicación es importante para su trabajo?</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center space-x-2 cursor-pointer border p-3 rounded-xl flex-1 justify-center hover:bg-slate-50 transition">
+                            <input type="radio" name="p1_importancia" value="Sí" required class="accent-ermpGreen">
+                            <span class="text-sm font-medium">Sí</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer border p-3 rounded-xl flex-1 justify-center hover:bg-slate-50 transition">
+                            <input type="radio" name="p1_importancia" value="No" class="accent-ermpRed">
+                            <span class="text-sm font-medium">No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div>
+                    <label for="p2" class="block text-sm font-medium text-slate-700 mb-1">2. ¿Qué entiende usted por comunicación?</label>
+                    <textarea id="p2" name="p2_definicion" rows="3" required placeholder="Escriba su concepto aquí..." class="w-full rounded-xl border border-slate-300 p-3 text-sm focus:ring-2 focus:ring-ermpBlue focus:border-transparent outline-none transition"></textarea>
+                </div>
+            </div>
+
+            <!-- Bloque 2: Flujo de Información -->
+            <div class="bg-white p-6 rounded-2xl form-card border border-slate-100 space-y-5">
+                <div class="flex items-center space-x-2 text-ermpBlue border-b pb-3 border-slate-100">
+                    <i class="fa-solid fa-sitemap text-lg"></i>
+                    <h3 class="font-bold text-lg">2. Flujo y Canales de Información</h3>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-2">3. Las informaciones que recibe generalmente vienen de:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="flex items-center space-x-2 border p-3 rounded-xl hover:bg-slate-50">
+                            <input type="checkbox" name="p3_origen[]" value="Superiores" class="rounded accent-ermpBlue">
+                            <span class="text-sm">Superiores</span>
+                        </label>
+                        <label class="flex items-center space-x-2 border p-3 rounded-xl hover:bg-slate-50">
+                            <input type="checkbox" name="p3_origen[]" value="Compañeros" class="rounded accent-ermpBlue">
+                            <span class="text-sm">Compañeros de trabajo</span>
+                        </label>
+                    </div>
+                    <div class="mt-2">
+                        <input type="text" name="p3_otros" placeholder="Otros (Especifique con letras)" oninput="this.value = this.value.replace(/[0-9]/g, '')" class="w-full text-sm border border-slate-300 p-2.5 rounded-xl outline-none focus:ring-1 focus:ring-ermpBlue">
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">4. Canales de información más utilizados:</label>
+                    <p class="text-xs text-slate-500 mb-3">Enumere según importancia (1 para el más importante, 2, 3... solo números).</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_reuniones" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Reuniones</span>
+                        </div>
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_correo" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Correo Electrónico</span>
+                        </div>
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_matutinos" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Matutinos</span>
+                        </div>
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_web" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Páginas Web</span>
+                        </div>
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_rumores" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Rumores</span>
+                        </div>
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_murales" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Murales</span>
+                        </div>
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_buzones" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Buzones de Sugerencias</span>
+                        </div>
+                        <div class="flex items-center space-x-2 border p-2 rounded-xl">
+                            <input type="number" name="p4_orden_chat" min="1" max="12" placeholder="#" class="w-12 border border-slate-300 p-1 rounded text-center font-bold text-ermpBlue" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                            <span>Chat Interno</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t">
+                        <label class="block text-sm font-medium text-slate-700 mb-2">a. ¿Son suficientes estos canales?</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center space-x-2"><input type="radio" name="p4a_suficientes" value="Sí" class="accent-ermpGreen"><span class="text-sm">Sí</span></label>
+                            <label class="flex items-center space-x-2"><input type="radio" name="p4a_suficientes" value="No" class="accent-ermpRed"><span class="text-sm">No</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloque 3: Escalas de Evaluación (Preguntas 7 y 19) -->
+            <div class="bg-white p-6 rounded-2xl form-card border border-slate-100 space-y-6">
+                <div class="flex items-center space-x-2 text-ermpBlue border-b pb-3 border-slate-100">
+                    <i class="fa-solid fa-chart-simple text-lg"></i>
+                    <h3 class="font-bold text-lg">3. Evaluación Institucional</h3>
+                </div>
+
+                <!-- Pregunta 7 -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-3">7. Tome en cuenta el funcionamiento de las decisiones:</label>
+                    <div class="space-y-4 text-sm">
+                        <div class="bg-slate-50 p-3 rounded-xl">
+                            <p class="mb-2 font-medium">A. Las decisiones están completamente centralizadas en la dirección.</p>
+                            <div class="flex justify-around text-xs">
+                                <label><input type="radio" name="p7_centralizadas" value="1" class="accent-ermpBlue"> 1 (Nunca)</label>
+                                <label><input type="radio" name="p7_centralizadas" value="2" class="accent-ermpBlue"> 2 (A veces)</label>
+                                <label><input type="radio" name="p7_centralizadas" value="3" class="accent-ermpBlue"> 3 (Siempre)</label>
+                            </div>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded-xl">
+                            <p class="mb-2 font-medium">B. Las decisiones pueden modificarse como resultado de consultas con trabajadores.</p>
+                            <div class="flex justify-around text-xs">
+                                <label><input type="radio" name="p7_modificables" value="1" class="accent-ermpBlue"> 1 (Nunca)</label>
+                                <label><input type="radio" name="p7_modificables" value="2" class="accent-ermpBlue"> 2 (A veces)</label>
+                                <label><input type="radio" name="p7_modificables" value="3" class="accent-ermpBlue"> 3 (Siempre)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 19 Matriz -->
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">19. Califique los siguientes aspectos en su organización:</label>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-center border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700">
+                                    <th class="p-2 text-left">Aspecto</th>
+                                    <th class="p-2">Muy Débil (1)</th>
+                                    <th class="p-2">Débil (2)</th>
+                                    <th class="p-2">Medio (3)</th>
+                                    <th class="p-2">Fuerte (4)</th>
+                                    <th class="p-2">Muy Fuerte (5)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="p-2 text-left font-medium">Motivación</td>
+                                    <td><input type="radio" name="p19_motivacion" value="1"></td>
+                                    <td><input type="radio" name="p19_motivacion" value="2"></td>
+                                    <td><input type="radio" name="p19_motivacion" value="3"></td>
+                                    <td><input type="radio" name="p19_motivacion" value="4"></td>
+                                    <td><input type="radio" name="p19_motivacion" value="5"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 text-left font-medium">Condiciones de trabajo</td>
+                                    <td><input type="radio" name="p19_condiciones" value="1"></td>
+                                    <td><input type="radio" name="p19_condiciones" value="2"></td>
+                                    <td><input type="radio" name="p19_condiciones" value="3"></td>
+                                    <td><input type="radio" name="p19_condiciones" value="4"></td>
+                                    <td><input type="radio" name="p19_condiciones" value="5"></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2 text-left font-medium">Estilos de dirección</td>
+                                    <td><input type="radio" name="p19_estilos_direccion" value="1"></td>
+                                    <td><input type="radio" name="p19_estilos_direccion" value="2"></td>
+                                    <td><input type="radio" name="p19_estilos_direccion" value="3"></td>
+                                    <td><input type="radio" name="p19_estilos_direccion" value="4"></td>
+                                    <td><input type="radio" name="p19_estilos_direccion" value="5"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pregunta 20a Validada para Letras/Adjetivos -->
+                <div>
+                    <label for="p20a" class="block text-sm font-medium text-slate-700 mb-1">20a. Diga través de adjetivos (solo letras) cómo le gustaría que fuera su organización:</label>
+                    <input type="text" id="p20a" name="p20a_adjetivos" placeholder="Ej: Transparente, eficiente, unida" oninput="this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s,]/g, '')" class="w-full text-sm border border-slate-300 p-3 rounded-xl outline-none focus:ring-2 focus:ring-ermpGreen">
+                </div>
+            </div>
+
+            <!-- Botón de Envío -->
+            <div class="pt-4">
+                <button type="submit" class="w-full bg-ermpGreen hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg transition duration-200 flex items-center justify-center space-x-2 text-base">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span>Enviar Cuestionario a Gmail</span>
+                </button>
+            </div>
+        </form>
