@@ -4,9 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diagnóstico de Comunicación Social - ERMP Villa Clara</title>
+  
+  <!-- Favicon para la pestaña del navegador -->
+  <link rel="icon" type="image/png" href="../logo.png">
+
   <!-- Google Fonts & Font Awesome Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <style>
     :root {
       --primary-color: #003B70;
@@ -43,13 +48,31 @@
       box-shadow: var(--shadow-md);
       overflow: hidden;
       border: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    /* Logo flotante en la esquina superior izquierda */
+    .header-logo-corner {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 10;
+    }
+
+    .header-logo-corner img {
+      width: 55px;
+      height: auto;
+      background: #ffffff;
+      padding: 4px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
     /* Header Styling */
     .app-header {
       background: linear-gradient(135deg, var(--primary-color) 0%, #002244 100%);
       color: white;
-      padding: 30px 20px;
+      padding: 35px 20px 30px 20px;
       text-align: center;
       position: relative;
     }
@@ -369,16 +392,23 @@
       .matrix-table th, .matrix-table td { padding: 8px 4px; }
       .step-tab span { display: none; }
       .channels-grid { grid-template-columns: 1fr; }
+      .header-logo-corner { top: 10px; left: 10px; }
+      .header-logo-corner img { width: 42px; }
     }
   </style>
 </head>
 <body>
 
   <div class="app-container">
+    <!-- Logo en la Esquina Superior Izquierda -->
+    <div class="header-logo-corner">
+      <img src="../logo.png" alt="ERMP Villa Clara Logo" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/marianlymm/materias-primas-mary/main/logo.png';">
+    </div>
+
     <!-- Header -->
     <header class="app-header">
       <div class="logo-container">
-        <img src="../logo.png" alt="ERMP Villa Clara" onerror="this.onerror=null; this.src='https://via.placeholder.com/140x60?text=ERMP+Logo';">
+        <img src="../logo.png" alt="ERMP Villa Clara" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/marianlymm/materias-primas-mary/main/logo.png';">
       </div>
       <h1>Diagnóstico de Comunicación Social</h1>
       <p>Cuestionario anónimo para trabajadores de la Empresa de Recuperación de Materias Primas Villa Clara</p>
@@ -399,7 +429,7 @@
     </div>
 
     <!-- FORMULARIO CONFIGURADO CON TU ENLACE DE FORMSPREE -->
-    <form id="quizForm" action=https://formspree.io/f/xvkgadye method="POST">
+    <form id="quizForm" action="https://formspree.io/f/xvkgadye" method="POST">
 
       <!-- STEP 1: CANALES Y FLUJOS -->
       <div class="form-step active" id="step1">
@@ -743,7 +773,7 @@
 
       steps[n].classList.add("active");
 
-      // Buttons Control
+      // Control de botones
       document.getElementById("prevBtn").style.display = (n === 0) ? "none" : "inline-flex";
       if (n === (steps.length - 1)) {
         document.getElementById("nextBtn").style.display = "none";
@@ -753,7 +783,7 @@
         document.getElementById("submitBtn").style.display = "none";
       }
 
-      // Progress bar & tabs update
+      // Actualizar barra de progreso e indicadores de pasos
       document.getElementById("progressBar").style.width = ((n + 1) / steps.length * 100) + "%";
       for (let i = 0; i < tabs.length; i++) {
         tabs[i].classList.remove("active");
@@ -764,7 +794,7 @@
     function nextPrev(n) {
       const steps = document.getElementsByClassName("form-step");
 
-      // Validate before proceeding
+      // Validar antes de avanzar
       if (n === 1 && !validateStep()) return false;
 
       steps[currentStep].classList.remove("active");
@@ -774,7 +804,6 @@
     }
 
     function validateStep() {
-      // Step-specific validation rules
       let valid = true;
       const currentFormStep = document.getElementsByClassName("form-step")[currentStep];
       const requiredInputs = currentFormStep.querySelectorAll("[required]");
@@ -794,13 +823,12 @@
       return valid;
     }
 
-    // REAL-TIME VALIDATION: BLOCK NUMBERS IN TEXT FIELDS
+    // VALIDACIÓN EN TIEMPO REAL: BLOQUEAR NÚMEROS EN CAMPOS DE TEXTO
     document.addEventListener("DOMContentLoaded", () => {
       const textOnlyInputs = document.querySelectorAll(".only-text");
 
       textOnlyInputs.forEach(input => {
         input.addEventListener("input", (e) => {
-          // Removes any number typed into the field
           const sanitizedValue = e.target.value.replace(/[0-9]/g, '');
           if (e.target.value !== sanitizedValue) {
             e.target.value = sanitizedValue;
@@ -813,7 +841,7 @@
         });
       });
 
-      // VALIDATION: PREVENT DUPLICATE PRIORITIES IN QUESTION 4
+      // VALIDACIÓN: PREVENIR PRIORIDADES DUPLICADAS EN PREGUNTA 4
       const numOrderInputs = document.querySelectorAll(".num-order");
       numOrderInputs.forEach(input => {
         input.addEventListener("change", (e) => {
